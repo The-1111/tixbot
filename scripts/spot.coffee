@@ -31,6 +31,7 @@
 URL = "#{process.env.HUBOT_SPOT_URL}"
 
 spotRequest = (message, path, action, options, callback) ->
+  console.log "#{message} #{path} #{action} #{options} #{callback}"
   message.http("#{URL}#{path}")
     .query(options)[action]() (err, res, body) ->
       callback(err,res,body)
@@ -38,6 +39,7 @@ spotRequest = (message, path, action, options, callback) ->
 module.exports = (robot) ->
 
   robot.respond /play!/i, (message) ->
+    console.log "Playing spotify."
     message.finish()
     spotRequest message, '/play', 'put', {}, (err, res, body) ->
       message.send(":notes:  #{body}")
