@@ -28,7 +28,7 @@
 # Author:
 #   mcminton
 
-URL = "https://22f781b1.ngrok.io"
+URL = "http://todaytix-jukebot.ngrok.io"
 
 spotRequest = (message, path, action, options, callback) ->
   console.log "#{path} #{action} #{options} #{callback}"
