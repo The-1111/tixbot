@@ -71,9 +71,7 @@ module.exports = (robot) ->
 
   robot.respond /volume\?/i, (message) ->
     request.get "#{URL}/volume", (err, res, body) ->
-      if (err) {
-          console.log err
-      }
+      console.log err
       message.send("Spot volume is #{body}. :mega:")
 
   robot.respond /volume\+/i, (message) ->
