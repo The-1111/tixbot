@@ -28,7 +28,7 @@
 # Author:
 #   mcminton
 
-URL = "http://10.16.8.149:5051/"
+URL = "http://10.16.8.149:5051"
 
 spotRequest = (message, path, action, options, callback) ->
   console.log "#{path} #{action} #{options} #{callback}"
