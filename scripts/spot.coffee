@@ -45,7 +45,7 @@ module.exports = (robot) ->
   robot.respond /play!/i, (message) ->
     console.log "Playing spotify."
     message.finish()
-    spotRequest message, '/play', 'put', {}, (err, res, body) ->
+    request.put "#{URL}/play", (err, res, body) ->
       message.send(":notes:  #{body}")
 
   robot.respond /pause/i, (message) ->
@@ -62,14 +62,12 @@ module.exports = (robot) ->
       message.send("#{body} :rewind:")
 
   robot.respond /playing\?/i, (message) ->
-
-    console.log "Playing?"
-    request "#{URL}/playing", (error, response, body) ->
-      message.send "#{URL}/playing.png"
-      message.send ":notes: #{body}"
+    request.get "#{URL}/playing", (error, response, body) ->
+        message.send("#{URL}/playing.png")
+        message.send(":notes:  #{body}")
 
   robot.respond /volume\?/i, (message) ->
-    spotRequest message, '/volume', 'get', {}, (err, res, body) ->
+    request.get "#{URL}/volume", (err, res, body) ->
       message.send("Spot volume is #{body}. :mega:")
 
   robot.respond /volume\+/i, (message) ->
