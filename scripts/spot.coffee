@@ -28,11 +28,14 @@
 # Author:
 #   mcminton
 
+request = require('request');
+
 URL = "http://10.16.8.149:5051"
 
 spotRequest = (message, path, action, options, callback) ->
   console.log "#{path} #{action} #{options} #{callback}"
   console.log "#{URL}#{path}"
+
   message.http("#{URL}#{path}")
     .query(options)[action]() (err, res, body) ->
       callback(err,res,body)
@@ -59,9 +62,11 @@ module.exports = (robot) ->
       message.send("#{body} :rewind:")
 
   robot.respond /playing\?/i, (message) ->
-    spotRequest message, '/playing', 'get', {}, (err, res, body) ->
-      message.send("#{URL}/playing.png")
-      message.send(":notes:  #{body}")
+
+    console.log "Playing?"
+    request "#{URL}/playing", (error, response, body) ->
+      message.send "#{URL}/playing.png"
+      message.send ":notes: #{body}"
 
   robot.respond /volume\?/i, (message) ->
     spotRequest message, '/volume', 'get', {}, (err, res, body) ->
