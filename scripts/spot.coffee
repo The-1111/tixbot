@@ -28,10 +28,11 @@
 # Author:
 #   mcminton
 
-URL = "#{process.env.HUBOT_SPOT_URL}"
+URL = "http://10.16.8.149:5051/"
 
 spotRequest = (message, path, action, options, callback) ->
-  console.log "#{message} #{path} #{action} #{options} #{callback}"
+  console.log "#{path} #{action} #{options} #{callback}"
+  console.log "#{URL}#{path}"
   message.http("#{URL}#{path}")
     .query(options)[action]() (err, res, body) ->
       callback(err,res,body)
