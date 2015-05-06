@@ -39,8 +39,7 @@ spotRequest = (message, path, action, options, callback) ->
 
 module.exports = (robot) ->
 
-  robot.respond /play!/i, (message) ->
-    console.log "Playing spotify."
+  robot.respond /play/i, (message) ->
     message.finish()
     spotRequest message, '/play', 'put', {}, (err, res, body) ->
       message.send(":notes:  #{body}")
@@ -48,7 +47,7 @@ module.exports = (robot) ->
   robot.respond /pause/i, (message) ->
     params = {volume: 0}
     spotRequest message, '/pause', 'put', params, (err, res, body) ->
-      message.send("#{body} :cry:")
+      message.send("Music paused.")
 
   robot.respond /next/i, (message) ->
     spotRequest message, '/next', 'put', {}, (err, res, body) ->
@@ -65,15 +64,15 @@ module.exports = (robot) ->
 
   robot.respond /volume\?/i, (message) ->
     spotRequest message, '/volume', 'get', {}, (err, res, body) ->
-      message.send("Spot volume is #{body}. :mega:")
+      message.send("Spotify volume is #{body}.")
 
   robot.respond /volume\+/i, (message) ->
     spotRequest message, '/bumpup', 'put', {}, (err, res, body) ->
-      message.send("Spot volume bumped to #{body}. :mega:")
+      message.send("Spotify volume bumped up to #{body}.")
 
   robot.respond /volume\-/i, (message) ->
     spotRequest message, '/bumpdown', 'put', {}, (err, res, body) ->
-      message.send("Spot volume bumped down to #{body}. :mega:")
+      message.send("Spotify volume bumped down to #{body}.")
 
   robot.respond /mute/i, (message) ->
     spotRequest message, '/mute', 'put', {}, (err, res, body) ->
@@ -82,12 +81,12 @@ module.exports = (robot) ->
   robot.respond /volume (.*)/i, (message) ->
     params = {volume: message.match[1]}
     spotRequest message, '/volume', 'put', params, (err, res, body) ->
-      message.send("Spot volume set to #{body}. :mega:")
+      message.send("Spot volume set to #{body}.")
 
   robot.respond /play (.*)/i, (message) ->
     params = {q: message.match[1]}
     spotRequest message, '/find', 'post', params, (err, res, body) ->
-      message.send(":small_blue_diamond: #{body}")
+      message.send(":notes: #{body}")
 
   robot.respond /say (.*)/i, (message) ->
     what = message.match[1]
@@ -97,10 +96,10 @@ module.exports = (robot) ->
 
   robot.respond /(.*) says.*turn.*down.*/i, (message) ->
     name = message.match[1]
-    message.send("#{name} says, 'Turn down the music and get off my lawn!' :bowtie:")
+    message.send("Ugh. Turning it down. :-1:")
     params = {volume: 15}
     spotRequest message, '/volume', 'put', params, (err, res, body) ->
-      message.send("Spot volume set to #{body}. :mega:")
+      message.send("Spotify volume set to #{body}. :mega:")
 
   robot.respond /find (.*)/i, (message) ->
     search = message.match[1]
