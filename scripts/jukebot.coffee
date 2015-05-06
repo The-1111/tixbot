@@ -31,8 +31,6 @@
 URL = "http://todaytix-jukebot.ngrok.io"
 
 spotRequest = (message, path, action, options, callback) ->
-  console.log "#{path} #{action} #{options} #{callback}"
-  console.log "#{URL}#{path}"
   message.http("#{URL}#{path}")
     .query(options)[action]() (err, res, body) ->
       callback(err,res,body)
@@ -81,7 +79,7 @@ module.exports = (robot) ->
   robot.respond /volume (.*)/i, (message) ->
     params = {volume: message.match[1]}
     spotRequest message, '/volume', 'put', params, (err, res, body) ->
-      message.send("Spot volume set to #{body}.")
+      message.send("Spotify volume set to #{body}.")
 
   robot.respond /play (.*)/i, (message) ->
     params = {q: message.match[1]}
