@@ -55,7 +55,7 @@ module.exports = (robot) ->
     spotRequest message, '/back', 'put', {}, (err, res, body) ->
       message.send("#{body} :rewind:")
 
-  robot.respond /what\'?s playing/i, (message) ->
+  robot.respond /playing\?/i, (message) ->
     spotRequest message, '/playing', 'get', {}, (err, res, body) ->
       message.send("#{URL}/playing.png")
       message.send(":notes:  #{body}")
